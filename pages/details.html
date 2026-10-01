@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scholarship Details — ScholarMate AI</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+</head>
+<body data-page="finder" data-root="../">
+
+  <header class="navbar" id="site-navbar"></header>
+
+  <main>
+    <section class="container" style="padding-top:28px;">
+      <a href="results.html" class="arrow-link text-muted" style="display:inline-flex; align-items:center; gap:6px; font-size:14px;">
+        <span class="arrow" style="transform:rotate(180deg); display:inline-block;">→</span> Back to results
+      </a>
+    </section>
+
+    <section class="section" style="padding-top:20px;">
+      <div class="container" id="detailContent">
+        <!-- Skeleton while loading -->
+        <div id="detailSkeleton">
+          <div class="skeleton skeleton-line w-60" style="height:30px; margin-bottom:14px;"></div>
+          <div class="skeleton skeleton-line w-40" style="margin-bottom:32px;"></div>
+          <div class="grid-2">
+            <div class="skeleton skeleton-line w-100" style="height:200px;"></div>
+            <div class="skeleton skeleton-line w-100" style="height:200px;"></div>
+          </div>
+        </div>
+
+        <!-- Populated by details.js -->
+        <div id="detailBody" style="display:none;"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="site-footer"></footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/details.js"></script>
+</body>
+</html>

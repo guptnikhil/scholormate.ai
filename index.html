@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ScholarMate — Public Scholarship Discovery & Eligibility Verification</title>
+<meta name="description" content="A structured public directory for state and central scholarships. Verify eligibility criteria, income thresholds, and deadlines with AI-assisted guidance." />
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/animations.css" />
+</head>
+<body data-page="home" data-root="">
+
+  <!-- Masthead Navbar (injected by main.js) -->
+  <header class="navbar" id="site-navbar"></header>
+
+  <main>
+
+    <!-- ============================= Hero ============================= -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div>
+          <span class="hero__kicker">Public Scholarship Register</span>
+          <h1>Scholarships matched to who you are, explained in plain language.</h1>
+          <p class="lead">A unified directory for state and central scholarships. Enter your domicile, community, and education background to see verified eligibility rules, award amounts, and upcoming deadlines.</p>
+
+          <div class="hero__ctas">
+            <a href="pages/finder.html" class="btn btn-primary">Open Eligibility Finder</a>
+            <a href="pages/assistant.html" class="btn btn-secondary">Consult AI Assistant</a>
+          </div>
+
+          <div class="hero__criteria-list">
+            <span>Evaluates against:</span>
+            <span class="hero__criteria-chip">State Domicile</span>
+            <span class="hero__criteria-chip">Income Limits</span>
+            <span class="hero__criteria-chip">Social Category</span>
+            <span class="hero__criteria-chip">Academic Cutoffs</span>
+          </div>
+        </div>
+
+        <div>
+          <!-- Live Interactive Natural-Language Search Inspector -->
+          <div class="search-console" aria-hidden="true">
+            <div class="search-console__header">
+              <span>ACTIVE QUERY EVALUATION</span>
+              <span>LIVE DEMO</span>
+            </div>
+            <div class="search-console__row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <div class="search-console__typer" id="heroTyper"><span class="cursor"></span></div>
+            </div>
+            <div class="search-console__results" id="heroResults"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ Categories =========================== -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:32px; padding-bottom:16px; border-bottom:1px solid var(--slate-200);">
+          <div>
+            <div class="eyebrow" style="margin-bottom:8px;">Scholarship Directory</div>
+            <h2>Browse by target qualification & scheme</h2>
+          </div>
+          <a href="pages/results.html" class="btn btn-secondary btn-sm">View Complete Register →</a>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;">
+
+          <div class="card card-lift feature-card">
+            <div class="feature-card__num">[SCH-01]</div>
+            <h3>Post-Matric & Minority Aid</h3>
+            <p>Government initiatives for minority communities, first-generation learners, and pre/post-matric students.</p>
+          </div>
+
+          <div class="card card-lift feature-card">
+            <div class="feature-card__num">[SCH-02]</div>
+            <h3>STEM & Technical Research</h3>
+            <p>Merit and research grants for students pursuing undergraduate and postgraduate engineering, science, or medicine.</p>
+          </div>
+
+          <div class="card card-lift feature-card">
+            <div class="feature-card__num">[SCH-03]</div>
+            <h3>State Domicile Allowances</h3>
+            <p>State-specific tuition fee waivers, hostel subsidies, and secondary education maintenance grants.</p>
+          </div>
+
+          <div class="card card-lift feature-card">
+            <div class="feature-card__num">[SCH-04]</div>
+            <h3>Income Threshold Grants</h3>
+            <p>Targeted funding for students with annual family income limits below ₹1.5L to ₹2.5L thresholds.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================== How it works ========================== -->
+    <section class="section" style="background:var(--paper-tint);" id="how-it-works">
+      <div class="container">
+        <div style="max-width:680px; margin-bottom:36px;">
+          <div class="eyebrow" style="margin-bottom:8px;">Verification Process</div>
+          <h2>How ScholarMate verifies your eligibility</h2>
+          <p class="text-muted" style="margin-top:8px;">Every scholarship has strict qualifying criteria. We compare your background against official scheme guidelines so you never waste time applying for awards you cannot receive.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
+          <div class="step">
+            <div class="step__img-wrap">
+              <img src="assets/images/step-1-describe.jpg" alt="Student writing qualifications and study details" class="step__img" loading="lazy" />
+              <div class="step__num">01 / 04</div>
+            </div>
+            <div class="step__body">
+              <h3>1. Describe background</h3>
+              <p>Provide your domicile state, social category, family income band, and current academic level.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__img-wrap">
+              <img src="assets/images/step-2-match.jpg" alt="Students exploring matching scholarships together" class="step__img" loading="lazy" />
+              <div class="step__num">02 / 04</div>
+            </div>
+            <div class="step__body">
+              <h3>2. Match verification</h3>
+              <p>The matching engine scans active government and institutional databases to find valid opportunities.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__img-wrap">
+              <img src="assets/images/step-3-qualify.jpg" alt="Student reviewing eligibility criteria checklist" class="step__img" loading="lazy" />
+              <div class="step__num">03 / 04</div>
+            </div>
+            <div class="step__body">
+              <h3>3. Criteria breakdown</h3>
+              <p>Every match provides an itemized criteria report explaining which requirements you satisfy.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__img-wrap">
+              <img src="assets/images/step-4-apply.jpg" alt="Students celebrating application and college success" class="step__img" loading="lazy" />
+              <div class="step__num">04 / 04</div>
+            </div>
+            <div class="step__body">
+              <h3>4. Official application</h3>
+              <p>Proceed directly to verified state and national portals with required documentation checklists ready.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="site-footer"></footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Hero "living" search demo: types example queries, then reveals
+    // three mock matched-scholarship chips with animated match percentages.
+    (function heroSearchDemo() {
+      const typerEl = document.getElementById("heroTyper");
+      const resultsEl = document.getElementById("heroResults");
+      if (!typerEl || !resultsEl) return;
+
+      const queries = [
+        "I'm from Bihar, family income 80k, studying engineering...",
+        "Female student, first-generation learner, Class 12 pass...",
+        "I have a 60% disability and need tuition support...",
+      ];
+
+      const mockMatches = [
+        { name: "National Merit — STEM Fellowship", match: "96%" },
+        { name: "Post-Matric Minority Welfare Aid", match: "91%" },
+        { name: "State Technical Education Subsidy", match: "88%" },
+      ];
+
+      let qIndex = 0;
+
+      function typeQuery(text, cb) {
+        let i = 0;
+        resultsEl.innerHTML = "";
+        typerEl.innerHTML = '<span class="cursor"></span>';
+        const interval = setInterval(() => {
+          i++;
+          typerEl.innerHTML = text.slice(0, i) + '<span class="cursor"></span>';
+          if (i >= text.length) {
+            clearInterval(interval);
+            setTimeout(cb, 500);
+          }
+        }, 28);
+      }
+
+      function showMatches() {
+        mockMatches.forEach((m, idx) => {
+          const chip = document.createElement("div");
+          chip.className = "search-chip-result";
+          chip.style.animationDelay = `${idx * 130}ms`;
+          chip.innerHTML = `<span class="dot">${m.match}</span><span>${m.name}</span>`;
+          resultsEl.appendChild(chip);
+        });
+      }
+
+      function eraseQuery(cb) {
+        setTimeout(() => {
+          resultsEl.innerHTML = "";
+          cb();
+        }, 2200);
+      }
+
+      function cycle() {
+        typeQuery(queries[qIndex], () => {
+          showMatches();
+          eraseQuery(() => {
+            qIndex = (qIndex + 1) % queries.length;
+            setTimeout(cycle, 600);
+          });
+        });
+      }
+
+      cycle();
+    })();
+  </script>
+</body>
+</html>

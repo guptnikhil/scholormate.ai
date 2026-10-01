@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — ScholarMate AI</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+</head>
+<body data-page="contact" data-root="../">
+
+  <header class="navbar" id="site-navbar"></header>
+
+  <main>
+    <section class="container page-header fade-up">
+      <div class="eyebrow" style="margin-bottom:14px;">Get in touch</div>
+      <h1>Contact ScholarMate AI</h1>
+      <p class="text-muted" style="margin-top:12px; max-width:560px;">
+        Have a question, a scholarship to suggest, or feedback on a match? Send us a message.
+      </p>
+    </section>
+
+    <section class="section" style="padding-top:24px;">
+      <div class="container grid-2">
+        <form class="card fade-up" style="padding:28px;" id="contactForm" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="input" placeholder="Your full name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="input" placeholder="you@example.com" required />
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" class="input" rows="5" placeholder="How can we help?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="padding-block:13px;">Send Message</button>
+        </form>
+
+        <div class="card fade-up" style="padding:28px;">
+          <h3 style="font-size:16px; margin-bottom:16px;">Other ways to reach us</h3>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div>
+              <div class="text-muted" style="font-size:12.5px; text-transform:uppercase; letter-spacing:.04em;">Email</div>
+              <div style="font-weight:600; margin-top:4px;">hello@scholarmate.ai</div>
+            </div>
+            <div>
+              <div class="text-muted" style="font-size:12.5px; text-transform:uppercase; letter-spacing:.04em;">Response time</div>
+              <div style="font-weight:600; margin-top:4px;">Within 2 business days</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="site-footer"></footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (window.showToast) showToast("Message sent — we'll get back to you soon.");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

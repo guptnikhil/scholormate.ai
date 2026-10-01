@@ -1,0 +1,47 @@
+/* =========================================================================
+   ScholarMate AI — Animation utilities
+   Kept separate from styles.css so animation-heavy work is easy to find
+   and to strip out entirely for prefers-reduced-motion contexts.
+   ========================================================================= */
+
+/* Staggered children reveal — add [data-stagger] to a container and
+   .fade-up to each child; main.js adds .is-visible via IntersectionObserver */
+[data-stagger] .fade-up:nth-child(1) { transition-delay: 0ms; }
+[data-stagger] .fade-up:nth-child(2) { transition-delay: 80ms; }
+[data-stagger] .fade-up:nth-child(3) { transition-delay: 160ms; }
+[data-stagger] .fade-up:nth-child(4) { transition-delay: 240ms; }
+[data-stagger] .fade-up:nth-child(5) { transition-delay: 320ms; }
+[data-stagger] .fade-up:nth-child(6) { transition-delay: 400ms; }
+
+/* Skeleton card used while results are "loading" from the mock API */
+.skeleton-card {
+  border: 1px solid var(--slate-200);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skeleton-line { height: 12px; }
+.skeleton-line.w-60 { width: 60%; }
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-line.w-90 { width: 90%; }
+.skeleton-line.w-100 { width: 100%; }
+.skeleton-circle { width: 56px; height: 56px; border-radius: 50%; flex: none; }
+
+/* Slide-in for toast handled in styles.css keyframes; page transition fade */
+.page-fade-in { animation: page-fade-in 0.35s ease; }
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hover card lift already in styles.css .card-lift; this adds a subtle
+   shadow-only variant used on smaller elements like chips/buttons */
+.lift-sm { transition: transform .18s ease, box-shadow .18s ease; }
+.lift-sm:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+/* Icon nudge on hover for links with a trailing arrow span */
+.arrow-link .arrow { display: inline-block; transition: transform .2s ease; }
+.arrow-link:hover .arrow { transform: translateX(3px); }

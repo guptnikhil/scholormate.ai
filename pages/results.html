@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scholarship Directory — ScholarMate</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="../css/styles.css" />
+<link rel="stylesheet" href="../css/animations.css" />
+</head>
+<body data-page="results" data-root="../">
+
+  <header class="navbar" id="site-navbar"></header>
+
+  <main>
+    <section class="container page-header fade-up">
+      <div class="eyebrow" style="margin-bottom:14px;">Step 2 of 2</div>
+      <h1 id="resultsHeading">Your scholarship matches</h1>
+      <p class="text-muted" id="resultsSubheading" style="margin-top:10px;">Ranked by how closely each one fits your profile.</p>
+    </section>
+
+    <section class="section" style="padding-top:24px;">
+      <div class="container">
+
+        <!-- Filters -->
+        <div class="filters-bar fade-up">
+          <select class="select" id="filterState">
+            <option value="Any">All states</option>
+            <option value="Bihar">Bihar</option>
+            <option value="All India">All India</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+          </select>
+
+          <select class="select" id="filterCategory">
+            <option value="Any">All categories</option>
+            <option value="General">General</option>
+            <option value="STEM">STEM</option>
+            <option value="Minority">Minority</option>
+            <option value="Disability">Disability</option>
+            <option value="Orphan">Orphan</option>
+            <option value="Gender">Gender</option>
+          </select>
+
+          <div style="display:flex; align-items:center; gap:6px;">
+            <input type="text" class="input" id="filterSearch" placeholder="Search scholarships…" style="min-width:200px;" />
+            <button type="button" class="btn btn-secondary btn-icon mic-btn" id="voiceSearchBtn" aria-label="Search by voice" title="Click to speak (Voice search)" style="width:40px; height:40px; flex-shrink:0;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+            </button>
+          </div>
+
+          <div style="flex:1;"></div>
+
+          <select class="select" id="sortSelect">
+            <option value="match">Sort: Best match</option>
+            <option value="amount">Sort: Highest amount</option>
+            <option value="deadline">Sort: Nearest deadline</option>
+          </select>
+        </div>
+
+        <!-- Results grid -->
+        <div class="results-grid" id="resultsGrid" data-stagger>
+          <!-- Skeletons injected on load, then replaced with real/mock cards -->
+        </div>
+
+        <!-- Empty state (hidden by default) -->
+        <div class="empty-state" id="emptyState" style="display:none; margin-top:8px;">
+          <div class="empty-state__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </div>
+          <h3>No scholarships match those filters</h3>
+          <p>Try widening your search or clearing a filter.</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="site-footer"></footer>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/results.js"></script>
+</body>
+</html>

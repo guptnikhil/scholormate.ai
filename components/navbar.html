@@ -1,0 +1,42 @@
+<!--
+  Reference copy of the Navbar component.
+
+  This markup is generated at runtime by the Navbar() function in
+  js/main.js and injected into <header id="site-navbar"> on every page,
+  so the navbar (and its active-link state) can be shared across pages
+  without a build step or server-side includes.
+
+  This file is kept as a readable reference of the structure — editing it
+  alone will NOT change the live site. To change the navbar, edit the
+  Navbar() function in js/main.js.
+-->
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a href="/index.html" class="brand" aria-label="ScholarMate home">
+      <span class="brand__mark">SM</span>
+      <span>ScholarMate</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/index.html">Overview</a>
+      <a href="/pages/results.html">Directory</a>
+      <a href="/pages/finder.html">Eligibility Finder</a>
+      <a href="/pages/assistant.html">AI Assistant</a>
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/contact.html">Contact</a>
+    </nav>
+
+    <div class="navbar__actions">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+
+  <nav class="nav-mobile" aria-label="Mobile">
+    <a href="/index.html">Overview</a>
+    <a href="/pages/results.html">Directory</a>
+    <a href="/pages/finder.html">Eligibility Finder</a>
+    <a href="/pages/assistant.html">AI Assistant</a>
+    <a href="/pages/about.html">About</a>
+    <a href="/pages/contact.html">Contact</a>
+  </nav>
+</header>
