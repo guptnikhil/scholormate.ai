@@ -54,7 +54,7 @@ const MOCK_SCHOLARSHIPS = [
     process:
       "Submit the online application with supporting documents, complete a short eligibility interview, and await verification within 3–4 weeks.",
     officialUrl: "https://www.education.gov.in/scholarships",
-    applyUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/otrapplication/#/login-page",
   },
   {
     id: "sch_002",
@@ -76,7 +76,7 @@ const MOCK_SCHOLARSHIPS = [
     documents: ["Minority community certificate", "Income certificate", "Bonafide student certificate"],
     process: "Apply through the state welfare portal; disbursal is made directly to the institution.",
     officialUrl: "https://scholarships.gov.in/",
-    applyUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/otrapplication/#/login-page",
   },
   {
     id: "sch_003",
@@ -98,7 +98,7 @@ const MOCK_SCHOLARSHIPS = [
     documents: ["Disability certificate", "Admission letter", "Bank passbook copy"],
     process: "Apply online, upload the disability certificate, and schedule a verification appointment if requested.",
     officialUrl: "https://disabilityaffairs.gov.in/",
-    applyUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/otrapplication/#/login-page",
   },
   {
     id: "sch_004",
@@ -120,7 +120,7 @@ const MOCK_SCHOLARSHIPS = [
     documents: ["Guardianship / orphan certificate", "School enrollment proof", "Guardian ID"],
     process: "Submit application through a registered NGO partner or directly via the trust's portal.",
     officialUrl: "https://wcd.nic.in/",
-    applyUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/otrapplication/#/login-page",
   },
   {
     id: "sch_005",
@@ -142,7 +142,7 @@ const MOCK_SCHOLARSHIPS = [
     documents: ["Rural residence certificate", "Class 12 mark sheet", "Income certificate"],
     process: "Apply via the state board portal within the notified window each academic year.",
     officialUrl: "https://scholarships.gov.in/",
-    applyUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/otrapplication/#/login-page",
   },
   {
     id: "sch_006",
@@ -164,7 +164,7 @@ const MOCK_SCHOLARSHIPS = [
     documents: ["Self-declaration of first-generation status", "Income certificate", "Admission proof"],
     process: "Complete the online form and a short written statement about your educational goals.",
     officialUrl: "https://www.aicte-india.org/schemes/students-development-schemes",
-    applyUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/otrapplication/#/login-page",
   },
 ];
 

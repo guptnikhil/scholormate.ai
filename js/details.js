@@ -54,9 +54,7 @@ function escapeAttr(str) {
 
 function renderDetail(s, body, skeleton) {
   skeleton.style.display = "none";
-  body.style.display = "block";
-
-  const applyLink = s.applyUrl || s.officialUrl || "https://scholarships.gov.in/";
+  body.style.display = "block";  const applyLink = s.applyUrl || "https://scholarships.gov.in/otrapplication/#/login-page";
   const officialLink = s.officialUrl || "https://scholarships.gov.in/";
 
   body.innerHTML = `
@@ -152,9 +150,26 @@ function renderDetail(s, body, skeleton) {
         <div class="detail-panel">
           <h3>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
-            Application Process
+            How to Apply
           </h3>
-          <p style="color:var(--ink-soft); font-size:14.5px; line-height:1.65;">${s.process}</p>
+          <p style="color:var(--ink-soft); font-size:14.5px; line-height:1.65; margin-bottom:14px;">${s.process}</p>
+
+          <div style="background:var(--paper-tint); border:1px solid var(--slate-200); border-radius:var(--r-md); padding:16px; margin-top:12px;">
+            <div style="font-weight:600; font-size:13.5px; margin-bottom:8px; color:var(--ink);">Official Student Application Steps:</div>
+            <ol style="margin:0; padding-left:18px; font-size:13.5px; color:var(--slate-500); line-height:1.65;">
+              <li>Open the <strong>National Scholarship Portal (NSP) OTR module</strong>.</li>
+              <li>Complete One-Time Registration (OTR) with your Aadhaar / Mobile number to generate your 14-digit OTR ID.</li>
+              <li>Log in with your OTR credentials to access the scholarship application form, select <strong>"${s.name}"</strong>, and submit.</li>
+            </ol>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;">
+              <a href="${applyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                Open Official Student Application Portal ↗
+              </a>
+              <a href="${officialLink}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                Scheme Guidelines & Portal ↗
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -175,10 +190,10 @@ function renderDetail(s, body, skeleton) {
           </div>
 
           <a href="${applyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" style="padding-block:14px; margin-bottom:10px;">
-            Apply Now
+            Apply Now (Student Portal) ↗
           </a>
           <a href="${officialLink}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-block">
-            Official Website
+            Official Guidelines Website
           </a>
         </div>
       </aside>

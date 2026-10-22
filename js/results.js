@@ -118,7 +118,7 @@ function scholarshipCardHTML(s) {
       <div class="scholarship-card__actions">
         <a href="details.html?id=${s.id}" class="btn btn-secondary btn-sm">View Details</a>
         <a href="${s.officialUrl || 'https://scholarships.gov.in/'}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">Official Website</a>
-        <a href="${s.applyUrl || s.officialUrl || 'https://scholarships.gov.in/'}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Apply Now</a>
+        <a href="${s.applyUrl || 'https://scholarships.gov.in/otrapplication/#/login-page'}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Apply Now ↗</a>
       </div>
     </article>
   `;
