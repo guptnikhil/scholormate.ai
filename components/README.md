@@ -35,12 +35,12 @@ which CSS classes back it, and which JS file (if any) generates it.
   <p class="scholarship-card__desc">Short description…</p>
   <div class="scholarship-card__facts">
     <span class="fact-chip is-amount">₹75,000</span>
-    <span class="fact-chip is-deadline">Due 15 Sep 2026</span>
+    <span class="fact-chip is-deadline">Due 30 Nov 2026</span>
   </div>
   <div class="scholarship-card__actions">
     <a href="details.html?id=sch_001" class="btn btn-secondary btn-sm">View Details</a>
-    <a href="#" class="btn btn-ghost btn-sm">Official Website</a>
-    <a href="#" class="btn btn-primary btn-sm">Apply Now</a>
+    <a href="https://www.education.gov.in/scholarships" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">Official Website</a>
+    <a href="https://scholarships.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Apply Now</a>
   </div>
 </article>
 ```

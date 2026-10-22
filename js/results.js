@@ -21,7 +21,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     if (storedResults) {
-      currentResults = JSON.parse(storedResults);
+      const parsed = JSON.parse(storedResults);
+      // Sync with latest definitions (deadlines, portal links) in case older mock data was cached in session
+      currentResults = parsed.map((item) => {
+        const fresh = typeof MOCK_SCHOLARSHIPS !== "undefined" ? MOCK_SCHOLARSHIPS.find((m) => m.id === item.id) : null;
+        return fresh ? { ...item, ...fresh } : item;
+      });
+      sessionStorage.setItem("sm_results", JSON.stringify(currentResults));
       updateHeading(storedProfile ? JSON.parse(storedProfile) : null);
       // brief delay so the skeleton -> content transition is visible
       await new Promise((r) => setTimeout(r, 350));
@@ -111,8 +117,8 @@ function scholarshipCardHTML(s) {
 
       <div class="scholarship-card__actions">
         <a href="details.html?id=${s.id}" class="btn btn-secondary btn-sm">View Details</a>
-        <a href="${s.officialUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Official Website</a>
-        <a href="${s.officialUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Apply Now</a>
+        <a href="${s.officialUrl || 'https://scholarships.gov.in/'}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">Official Website</a>
+        <a href="${s.applyUrl || s.officialUrl || 'https://scholarships.gov.in/'}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Apply Now</a>
       </div>
     </article>
   `;

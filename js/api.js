@@ -30,7 +30,7 @@ const MOCK_SCHOLARSHIPS = [
     provider: "Ministry of Education",
     amount: 75000,
     match: 96,
-    deadline: "2026-09-15",
+    deadline: "2026-11-30",
     state: "Bihar",
     category: "STEM",
     description:
@@ -53,7 +53,8 @@ const MOCK_SCHOLARSHIPS = [
     ],
     process:
       "Submit the online application with supporting documents, complete a short eligibility interview, and await verification within 3–4 weeks.",
-    officialUrl: "https://example.gov.in/scholarships/national-merit-stem",
+    officialUrl: "https://www.education.gov.in/scholarships",
+    applyUrl: "https://scholarships.gov.in/",
   },
   {
     id: "sch_002",
@@ -61,7 +62,7 @@ const MOCK_SCHOLARSHIPS = [
     provider: "State Welfare Department",
     amount: 40000,
     match: 91,
-    deadline: "2026-08-30",
+    deadline: "2026-12-15",
     state: "Bihar",
     category: "Minority",
     description:
@@ -74,7 +75,8 @@ const MOCK_SCHOLARSHIPS = [
     benefits: ["Annual tuition reimbursement", "Book and stationery allowance", "Hostel fee waiver where applicable"],
     documents: ["Minority community certificate", "Income certificate", "Bonafide student certificate"],
     process: "Apply through the state welfare portal; disbursal is made directly to the institution.",
-    officialUrl: "https://example.gov.in/scholarships/post-matric-minority",
+    officialUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/",
   },
   {
     id: "sch_003",
@@ -82,7 +84,7 @@ const MOCK_SCHOLARSHIPS = [
     provider: "Department of Social Justice",
     amount: 60000,
     match: 88,
-    deadline: "2026-10-05",
+    deadline: "2027-01-10",
     state: "All India",
     category: "Disability",
     description:
@@ -95,7 +97,8 @@ const MOCK_SCHOLARSHIPS = [
     benefits: ["Assistive device allowance", "Full fee reimbursement", "Escort/attendant stipend where required"],
     documents: ["Disability certificate", "Admission letter", "Bank passbook copy"],
     process: "Apply online, upload the disability certificate, and schedule a verification appointment if requested.",
-    officialUrl: "https://example.gov.in/scholarships/disability-grant",
+    officialUrl: "https://disabilityaffairs.gov.in/",
+    applyUrl: "https://scholarships.gov.in/",
   },
   {
     id: "sch_004",
@@ -103,7 +106,7 @@ const MOCK_SCHOLARSHIPS = [
     provider: "Child Welfare Trust",
     amount: 50000,
     match: 84,
-    deadline: "2026-09-01",
+    deadline: "2026-12-31",
     state: "All India",
     category: "Orphan",
     description:
@@ -116,7 +119,8 @@ const MOCK_SCHOLARSHIPS = [
     benefits: ["Full fee coverage", "Annual uniform and book kit", "Access to counselling support"],
     documents: ["Guardianship / orphan certificate", "School enrollment proof", "Guardian ID"],
     process: "Submit application through a registered NGO partner or directly via the trust's portal.",
-    officialUrl: "https://example.org/scholarships/ovc-fund",
+    officialUrl: "https://wcd.nic.in/",
+    applyUrl: "https://scholarships.gov.in/",
   },
   {
     id: "sch_005",
@@ -124,7 +128,7 @@ const MOCK_SCHOLARSHIPS = [
     provider: "State Education Board",
     amount: 30000,
     match: 79,
-    deadline: "2026-11-20",
+    deadline: "2026-11-15",
     state: "Bihar",
     category: "General",
     description:
@@ -137,7 +141,8 @@ const MOCK_SCHOLARSHIPS = [
     benefits: ["One-time cash award", "Priority hostel allotment", "Certificate of merit"],
     documents: ["Rural residence certificate", "Class 12 mark sheet", "Income certificate"],
     process: "Apply via the state board portal within the notified window each academic year.",
-    officialUrl: "https://example.gov.in/scholarships/rural-talent",
+    officialUrl: "https://scholarships.gov.in/",
+    applyUrl: "https://scholarships.gov.in/",
   },
   {
     id: "sch_006",
@@ -145,7 +150,7 @@ const MOCK_SCHOLARSHIPS = [
     provider: "National Education Foundation",
     amount: 45000,
     match: 74,
-    deadline: "2026-08-18",
+    deadline: "2027-01-31",
     state: "All India",
     category: "Gender",
     description:
@@ -158,7 +163,8 @@ const MOCK_SCHOLARSHIPS = [
     benefits: ["Tuition support", "Career counselling sessions", "Alumni mentorship network access"],
     documents: ["Self-declaration of first-generation status", "Income certificate", "Admission proof"],
     process: "Complete the online form and a short written statement about your educational goals.",
-    officialUrl: "https://example.org/scholarships/first-gen-girls",
+    officialUrl: "https://www.aicte-india.org/schemes/students-development-schemes",
+    applyUrl: "https://scholarships.gov.in/",
   },
 ];
 
