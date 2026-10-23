@@ -262,6 +262,7 @@ textarea:focus-visible,
   font-size: 12px;
   font-weight: 700;
   border-radius: var(--r-sm);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .brand__tag {
@@ -1620,6 +1621,17 @@ textarea:focus-visible,
 /* =========================================================================
    Dark Mode Component Overrides
    ========================================================================= */
+
+[data-theme="dark"] .brand {
+  color: #f3f4f6;
+}
+
+[data-theme="dark"] .brand__mark {
+  background: #f8fafc;
+  color: #0b0d11;
+  border-color: #f8fafc;
+  font-weight: 800;
+}
 
 [data-theme="dark"] .btn-primary {
   background: #f8fafc;
