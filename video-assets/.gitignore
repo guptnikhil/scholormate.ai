@@ -3,3 +3,4 @@ recordings/
 audio/*.wav
 audio/*.aiff
 audio/concat_list.txt
+test_subtitles.*

@@ -6,29 +6,29 @@ This directory contains the end-to-end automated pipeline to record, narrate, su
 
 ## Architecture & Components
 
-1. **Browser Automation (`browser-automation.js`):**
-   - Driven by **Playwright (Chromium)** at true 1920×1080 resolution.
-   - Smooth mouse cursor animation and realistic human interaction cadence.
-   - Visits every critical workflow:
-     1. Hero landing & live-typing simulation.
-     2. Zero-FOUC Dark / Light theme switching.
-     3. Multi-criteria Scholarship Finder submission.
-     4. Dynamic Directory filtering and sorting by amount & deadline.
-     5. Scheme details & interactive Document Checklist (0% -> 100% progress).
-     6. Direct NSP One-Time Registration (OTR) student portal links.
-     7. AI Assistant conversational consultation with voice search.
-     8. Branded closing card.
+1. **Single Timeline Source of Truth (`timeline.js` & `timeline-manifest.json`):**
+   - Automatically measures actual narration audio durations using FFmpeg.
+   - Computes global timeline offsets, action checkpoints, sentence durations, and subtitle timecodes.
+   - Enforces a unified timebase across browser automation, speech, captions, and video assembly.
 
-2. **Narration & Speech Synthesis (`generate-narration.js`):**
-   - Uses high-quality system text-to-speech with natural cadence and tone.
-   - Generates individual synchronized audio tracks for each scene.
+2. **Synchronized Browser Automation (`browser-automation.js`):**
+   - Driven by **Playwright (Chromium)** at locked 1920×1080 resolution.
+   - Smooth mouse cursor animation (`#v-cursor`) with 60fps compositor heartbeat to eliminate frame drops.
+   - Executes visual actions strictly aligned with narration sentence cues.
+   - Holds visual state on screen until voiceover completes, guaranteeing zero premature scene transitions.
 
-3. **Subtitles & Timecoding (`generate-subtitles.js`):**
-   - Generates synchronized WebVTT / SRT subtitle tracks matching narration pacing.
+3. **High-Fidelity Narration Synthesis (`generate-narration.js`):**
+   - Synthesizes studio-grade voiceover audio files for each scene via macOS speech synthesis.
+   - Converts to 48kHz stereo WAV with dynamic range normalization.
 
-4. **Composition & Video Rendering (`render-video.js`):**
-   - Compiles video tracks, narration audio, title cards, and subtitles using FFmpeg.
-   - Outputs web-optimized 1080p H.264 / AAC MP4 file into `../output/project-demo.mp4`.
+4. **Accurate Subtitles (`generate-subtitles.js`):**
+   - Generates synchronized WebVTT and SRT subtitle tracks derived directly from the authoritative timeline manifest.
+
+5. **Frame-Accurate Compositing & Assembly (`render-video.js`):**
+   - Encodes each scene into strict 30 FPS Constant Frame Rate (CFR) MP4 clips (`output/scenes/`).
+   - Uses `tpad` to clone final frames if browser actions settle ahead of audio, preventing black or frozen frames.
+   - Losslessly concatenates scene clips into `output/project-demo.mp4`.
+   - Generates multi-frame contact sheets (`output/contact-sheet.png` & `output/test-contact-sheet.png`) for visual QA.
 
 ---
 
@@ -36,32 +36,32 @@ This directory contains the end-to-end automated pipeline to record, narrate, su
 
 ### 1. Requirements
 - Node.js v18+ (tested on v24.14.0 arm64)
-- Playwright Chromium browser (`npx playwright install chromium`)
+- Playwright Chromium (`npx playwright install chromium`)
 
-### 2. Running Locally
-To generate the demo video:
+### 2. Run Regression Test (3 Scenes)
+Before rendering the full video, verify synchronization with the 3-scene test runner:
 ```bash
-# 1. Start the local server if not already running (or pass deployed URL)
-python3 -m http.server 5500
+cd video-assets
+npm run test-pipeline
+```
+Outputs: `../output/test-render.mp4` and `../output/test-contact-sheet.png`.
 
-# 2. Run the automated generation pipeline
+### 3. Generate Full Production Video (7 Scenes)
+```bash
 cd video-assets
 npm run generate-demo
 ```
 
-### 3. Running Against a Deployed URL
+### 4. Running Against a Deployed URL
 ```bash
 TARGET_URL="https://your-deployed-domain.com" npm run generate-demo
 ```
 
 ---
 
-## Output
-The rendered, portfolio-ready demo video is saved at:
-```
-output/project-demo.mp4
-```
-- Resolution: 1920 × 1080
-- Frame Rate: 30 FPS
-- Video Codec: H.264
-- Audio Codec: AAC
+## Outputs & Deliverables
+- **Production Video**: `output/project-demo.mp4` (1920×1080 @ 30 FPS, H.264/AAC, ~1m 58s)
+- **Visual Contact Sheet**: `output/contact-sheet.png` (25-frame timeline inspection grid)
+- **Regression Test Video**: `output/test-render.mp4` (3 scenes / 50s, 0.020s drift)
+- **Regression Contact Sheet**: `output/test-contact-sheet.png`
+- **Subtitles**: `video-assets/subtitles.srt` and `video-assets/subtitles.vtt`

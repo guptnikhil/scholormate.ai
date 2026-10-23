@@ -1,6 +1,6 @@
 /**
  * generate-subtitles.js
- * Creates synchronized SRT and VTT subtitle files based on scene durations.
+ * Creates synchronized SRT and VTT subtitle files based on the authoritative timeline manifest.
  */
 
 const fs = require('fs');
@@ -24,34 +24,24 @@ function formatVTTTime(seconds) {
   return `${h}:${m}:${s}.${ms}`;
 }
 
-function generateSubtitles(manifest, outputFileBase) {
+function generateSubtitlesFromManifest(manifest, outputFileBase) {
   let srtContent = '';
   let vttContent = 'WEBVTT\n\n';
-  let currentTime = 0;
   let counter = 1;
 
-  manifest.forEach((scene) => {
-    // Split scene text into natural sentence phrases (roughly 8-12 words per caption line)
-    const sentences = scene.text.match(/[^.!?]+[.!?]+/g) || [scene.text];
-    const phraseDuration = scene.duration / sentences.length;
-
-    sentences.forEach((phrase) => {
-      const start = currentTime;
-      const end = currentTime + phraseDuration;
-      const cleanPhrase = phrase.trim();
-
+  manifest.scenes.forEach((scene) => {
+    scene.captions.forEach((cap) => {
       // SRT entry
       srtContent += `${counter}\n`;
-      srtContent += `${formatSRTTime(start)} --> ${formatSRTTime(end)}\n`;
-      srtContent += `${cleanPhrase}\n\n`;
+      srtContent += `${formatSRTTime(cap.start)} --> ${formatSRTTime(cap.end)}\n`;
+      srtContent += `${cap.text}\n\n`;
 
       // VTT entry
       vttContent += `${counter}\n`;
-      vttContent += `${formatVTTTime(start)} --> ${formatVTTTime(end)}\n`;
-      vttContent += `${cleanPhrase}\n\n`;
+      vttContent += `${formatVTTTime(cap.start)} --> ${formatVTTTime(cap.end)}\n`;
+      vttContent += `${cap.text}\n\n`;
 
       counter++;
-      currentTime = end;
     });
   });
 
@@ -61,18 +51,20 @@ function generateSubtitles(manifest, outputFileBase) {
   fs.writeFileSync(srtPath, srtContent.trim());
   fs.writeFileSync(vttPath, vttContent.trim());
 
-  console.log(`✅ Subtitles generated:\n   - ${srtPath}\n   - ${vttPath}`);
+  console.log(`✅ Synchronized Subtitles generated from Timeline Manifest:`);
+  console.log(`   - ${srtPath}`);
+  console.log(`   - ${vttPath}`);
   return { srtPath, vttPath };
 }
 
 if (require.main === module) {
-  const manifestPath = path.join(__dirname, 'audio', 'manifest.json');
+  const manifestPath = path.join(__dirname, 'timeline-manifest.json');
   if (fs.existsSync(manifestPath)) {
     const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-    generateSubtitles(manifest, path.join(__dirname, 'subtitles'));
+    generateSubtitlesFromManifest(manifest, path.join(__dirname, 'subtitles'));
   } else {
-    console.warn('Run generate-narration.js first to create audio manifest.');
+    console.warn('Run timeline.js first to create timeline-manifest.json.');
   }
 }
 
-module.exports = { generateSubtitles };
+module.exports = { generateSubtitlesFromManifest, formatSRTTime, formatVTTTime };

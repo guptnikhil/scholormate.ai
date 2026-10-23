@@ -1,0 +1,528 @@
+{
+  "fps": 30,
+  "timebase": "seconds",
+  "totalDuration": 117.86,
+  "sceneCount": 7,
+  "scenes": [
+    {
+      "id": "scene_01",
+      "index": 1,
+      "name": "Introduction & Problem Statement",
+      "route": "/index.html",
+      "narrationText": "Every year, millions of Indian students miss out on government and private scholarships simply because eligibility criteria are buried in dense bureaucratic PDF notices. ScholarMate AI is a public scholarship discovery and verification platform that turns complex guidelines into clear, instant criteria matching.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_01.wav",
+      "audioDuration": 18.54,
+      "videoDuration": 18.54,
+      "timelineStart": 0,
+      "timelineEnd": 18.54,
+      "duration": 18.54,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "move",
+          "x": 960,
+          "y": 480,
+          "duration": 800,
+          "desc": "Position cursor in hero",
+          "timelineAbsoluteSec": 0.8
+        },
+        {
+          "offsetSec": 3.5,
+          "type": "move",
+          "selector": ".search-console",
+          "duration": 700,
+          "desc": "Hover search console",
+          "timelineAbsoluteSec": 3.5
+        },
+        {
+          "offsetSec": 10,
+          "type": "move",
+          "selector": ".hero__ctas a.btn-primary",
+          "duration": 600,
+          "desc": "Hover primary CTA",
+          "timelineAbsoluteSec": 10
+        },
+        {
+          "offsetSec": 15,
+          "type": "hold",
+          "desc": "Hold hero view until narration ends",
+          "timelineAbsoluteSec": 15
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 0,
+          "end": 9.27,
+          "text": "Every year, millions of Indian students miss out on government and private scholarships simply because eligibility criteria are buried in dense bureaucratic PDF notices."
+        },
+        {
+          "index": 2,
+          "start": 9.27,
+          "end": 18.54,
+          "text": "ScholarMate AI is a public scholarship discovery and verification platform that turns complex guidelines into clear, instant criteria matching."
+        }
+      ]
+    },
+    {
+      "id": "scene_02",
+      "index": 2,
+      "name": "Theme System",
+      "route": "/index.html",
+      "narrationText": "Designed with an editorial civic aesthetic, ScholarMate supports both an archival daylight mode and a high-contrast dark theme, ensuring comfortable reading across long study sessions on any device.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_02.wav",
+      "audioDuration": 11.07,
+      "videoDuration": 11.07,
+      "timelineStart": 18.54,
+      "timelineEnd": 29.61,
+      "duration": 11.07,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "move",
+          "selector": "#themeToggle",
+          "duration": 700,
+          "desc": "Move to theme toggle",
+          "timelineAbsoluteSec": 19.34
+        },
+        {
+          "offsetSec": 2.5,
+          "type": "click",
+          "selector": "#themeToggle",
+          "desc": "Toggle dark mode",
+          "timelineAbsoluteSec": 21.04
+        },
+        {
+          "offsetSec": 4.5,
+          "type": "scroll",
+          "top": 380,
+          "desc": "Scroll down to categories",
+          "timelineAbsoluteSec": 23.04
+        },
+        {
+          "offsetSec": 7.5,
+          "type": "scroll",
+          "top": 0,
+          "desc": "Scroll back to hero",
+          "timelineAbsoluteSec": 26.04
+        },
+        {
+          "offsetSec": 9,
+          "type": "hold",
+          "desc": "Hold dark hero view",
+          "timelineAbsoluteSec": 27.54
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 18.54,
+          "end": 29.61,
+          "text": "Designed with an editorial civic aesthetic, ScholarMate supports both an archival daylight mode and a high-contrast dark theme, ensuring comfortable reading across long study sessions on any device."
+        }
+      ]
+    },
+    {
+      "id": "scene_03",
+      "index": 3,
+      "name": "Eligibility Finder",
+      "route": "/pages/finder.html",
+      "narrationText": "The heart of ScholarMate is the Eligibility Finder. Instead of reading dozens of notification circulars, students simply specify their domicile, academic discipline, and socio-economic background. With one tap, ScholarMate evaluates dozens of reservation and income thresholds to rank only the schemes you actually qualify for.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_03.wav",
+      "audioDuration": 20.5,
+      "videoDuration": 20.5,
+      "timelineStart": 29.61,
+      "timelineEnd": 50.11,
+      "duration": 20.5,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "move",
+          "selector": "#finderForm",
+          "duration": 600,
+          "desc": "Focus finder form",
+          "timelineAbsoluteSec": 30.41
+        },
+        {
+          "offsetSec": 3.5,
+          "type": "select",
+          "selector": "#state",
+          "value": "Bihar",
+          "desc": "Select Domicile State",
+          "timelineAbsoluteSec": 33.11
+        },
+        {
+          "offsetSec": 6.5,
+          "type": "select",
+          "selector": "#category",
+          "value": "STEM",
+          "desc": "Select Academic Discipline",
+          "timelineAbsoluteSec": 36.11
+        },
+        {
+          "offsetSec": 9.5,
+          "type": "fill",
+          "selector": "#income",
+          "value": "80000",
+          "desc": "Input Annual Income",
+          "timelineAbsoluteSec": 39.11
+        },
+        {
+          "offsetSec": 11,
+          "type": "select",
+          "selector": "#currentClass",
+          "value": "undergraduate",
+          "desc": "Select Class",
+          "timelineAbsoluteSec": 40.61
+        },
+        {
+          "offsetSec": 12.5,
+          "type": "click",
+          "selector": "[data-toggle-group=\"minority\"] .toggle-chip[data-value=\"yes\"]",
+          "desc": "Toggle Minority status",
+          "timelineAbsoluteSec": 42.11
+        },
+        {
+          "offsetSec": 14.5,
+          "type": "click",
+          "selector": "#findBtn",
+          "desc": "Submit Finder Form",
+          "timelineAbsoluteSec": 44.11
+        },
+        {
+          "offsetSec": 16.5,
+          "type": "hold",
+          "desc": "Hold results view as explanation finishes",
+          "timelineAbsoluteSec": 46.11
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 29.61,
+          "end": 36.44,
+          "text": "The heart of ScholarMate is the Eligibility Finder."
+        },
+        {
+          "index": 2,
+          "start": 36.44,
+          "end": 43.27,
+          "text": "Instead of reading dozens of notification circulars, students simply specify their domicile, academic discipline, and socio-economic background."
+        },
+        {
+          "index": 3,
+          "start": 43.27,
+          "end": 50.1,
+          "text": "With one tap, ScholarMate evaluates dozens of reservation and income thresholds to rank only the schemes you actually qualify for."
+        }
+      ]
+    },
+    {
+      "id": "scene_04",
+      "index": 4,
+      "name": "Directory and Filters",
+      "route": "/pages/results.html",
+      "narrationText": "The results directory presents matched scholarships ordered by compatibility. Each scheme card features high-visibility financial amounts, closing deadlines, and transparent eligibility tags. Real-time search and smart filters allow applicants to quickly organize opportunities by urgency or funding value.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_04.wav",
+      "audioDuration": 18.26,
+      "videoDuration": 18.26,
+      "timelineStart": 50.11,
+      "timelineEnd": 68.37,
+      "duration": 18.26,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "move",
+          "selector": ".results-list",
+          "duration": 600,
+          "desc": "Browse results list",
+          "timelineAbsoluteSec": 50.91
+        },
+        {
+          "offsetSec": 3.5,
+          "type": "move",
+          "selector": ".scholarship-card:first-child",
+          "duration": 700,
+          "desc": "Highlight top match card",
+          "timelineAbsoluteSec": 53.61
+        },
+        {
+          "offsetSec": 7.5,
+          "type": "fill",
+          "selector": "#filterSearch",
+          "value": "engineering",
+          "desc": "Filter by keyword engineering",
+          "timelineAbsoluteSec": 57.61
+        },
+        {
+          "offsetSec": 10.5,
+          "type": "fill",
+          "selector": "#filterSearch",
+          "value": "",
+          "desc": "Clear search filter",
+          "timelineAbsoluteSec": 60.61
+        },
+        {
+          "offsetSec": 13,
+          "type": "select",
+          "selector": "#sortSelect",
+          "value": "amount",
+          "desc": "Sort by highest funding",
+          "timelineAbsoluteSec": 63.11
+        },
+        {
+          "offsetSec": 15,
+          "type": "hold",
+          "desc": "Hold sorted directory",
+          "timelineAbsoluteSec": 65.11
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 50.11,
+          "end": 56.2,
+          "text": "The results directory presents matched scholarships ordered by compatibility."
+        },
+        {
+          "index": 2,
+          "start": 56.2,
+          "end": 62.29,
+          "text": "Each scheme card features high-visibility financial amounts, closing deadlines, and transparent eligibility tags."
+        },
+        {
+          "index": 3,
+          "start": 62.29,
+          "end": 68.38,
+          "text": "Real-time search and smart filters allow applicants to quickly organize opportunities by urgency or funding value."
+        }
+      ]
+    },
+    {
+      "id": "scene_05",
+      "index": 5,
+      "name": "Document Checklist and NSP Portal",
+      "route": "/pages/details.html?id=sch_001",
+      "narrationText": "Selecting a scholarship opens a complete scheme dossier. Crucially, ScholarMate features an interactive Document Readiness Checklist. As students gather certificates, mark sheets, and identity proofs, they can tick off each item. Once ready, ScholarMate directs applicants straight to the official National Scholarship Portal OTR module with verified instructions.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_05.wav",
+      "audioDuration": 22.15,
+      "videoDuration": 22.15,
+      "timelineStart": 68.37,
+      "timelineEnd": 90.52,
+      "duration": 22.15,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "scroll",
+          "top": 460,
+          "desc": "Scroll to document checklist",
+          "timelineAbsoluteSec": 69.17
+        },
+        {
+          "offsetSec": 4,
+          "type": "move",
+          "selector": "#docChecklist",
+          "duration": 600,
+          "desc": "Highlight checklist",
+          "timelineAbsoluteSec": 72.37
+        },
+        {
+          "offsetSec": 8.5,
+          "type": "click",
+          "selector": "label[for=\"doc-0\"]",
+          "desc": "Check Aadhaar Card",
+          "timelineAbsoluteSec": 76.87
+        },
+        {
+          "offsetSec": 10.5,
+          "type": "click",
+          "selector": "label[for=\"doc-1\"]",
+          "desc": "Check Income Certificate",
+          "timelineAbsoluteSec": 78.87
+        },
+        {
+          "offsetSec": 12.5,
+          "type": "click",
+          "selector": "label[for=\"doc-2\"]",
+          "desc": "Check Marksheets",
+          "timelineAbsoluteSec": 80.87
+        },
+        {
+          "offsetSec": 14.5,
+          "type": "click",
+          "selector": "label[for=\"doc-3\"]",
+          "desc": "Check Bank Passbook (100% complete)",
+          "timelineAbsoluteSec": 82.87
+        },
+        {
+          "offsetSec": 17.5,
+          "type": "move",
+          "selector": ".official-links",
+          "duration": 600,
+          "desc": "Highlight Official Portal button",
+          "timelineAbsoluteSec": 85.87
+        },
+        {
+          "offsetSec": 19.5,
+          "type": "hold",
+          "desc": "Hold verified dossier view",
+          "timelineAbsoluteSec": 87.87
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 68.37,
+          "end": 73.91,
+          "text": "Selecting a scholarship opens a complete scheme dossier."
+        },
+        {
+          "index": 2,
+          "start": 73.91,
+          "end": 79.45,
+          "text": "Crucially, ScholarMate features an interactive Document Readiness Checklist."
+        },
+        {
+          "index": 3,
+          "start": 79.45,
+          "end": 84.99,
+          "text": "As students gather certificates, mark sheets, and identity proofs, they can tick off each item."
+        },
+        {
+          "index": 4,
+          "start": 84.99,
+          "end": 90.53,
+          "text": "Once ready, ScholarMate directs applicants straight to the official National Scholarship Portal OTR module with verified instructions."
+        }
+      ]
+    },
+    {
+      "id": "scene_06",
+      "index": 6,
+      "name": "AI Assistant and Voice Input",
+      "route": "/pages/assistant.html",
+      "narrationText": "For students who prefer a conversational experience, ScholarMate provides an AI Assistant. Students can ask open questions in natural language, ask about specific documents, or use voice input to receive tailored recommendations on the spot.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_06.wav",
+      "audioDuration": 14.93,
+      "videoDuration": 14.93,
+      "timelineStart": 90.52,
+      "timelineEnd": 105.45,
+      "duration": 14.93,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "move",
+          "selector": ".suggested-q:first-of-type",
+          "duration": 600,
+          "desc": "Move to suggested prompt",
+          "timelineAbsoluteSec": 91.32
+        },
+        {
+          "offsetSec": 3.2,
+          "type": "click",
+          "selector": ".suggested-q:first-of-type",
+          "desc": "Click suggested prompt",
+          "timelineAbsoluteSec": 93.72
+        },
+        {
+          "offsetSec": 8.5,
+          "type": "move",
+          "selector": "#micBtn",
+          "duration": 600,
+          "desc": "Highlight Voice Input button",
+          "timelineAbsoluteSec": 99.02
+        },
+        {
+          "offsetSec": 11.5,
+          "type": "hold",
+          "desc": "Hold conversational advice view",
+          "timelineAbsoluteSec": 102.02
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 90.52,
+          "end": 97.98,
+          "text": "For students who prefer a conversational experience, ScholarMate provides an AI Assistant."
+        },
+        {
+          "index": 2,
+          "start": 97.98,
+          "end": 105.45,
+          "text": "Students can ask open questions in natural language, ask about specific documents, or use voice input to receive tailored recommendations on the spot."
+        }
+      ]
+    },
+    {
+      "id": "scene_07",
+      "index": 7,
+      "name": "Conclusion",
+      "route": "/index.html",
+      "narrationText": "ScholarMate AI bridges the information gap between deserving students and vital academic funding. Clean, fast, and completely free to use. Explore the live portal and discover your opportunities today.",
+      "audioFile": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_07.wav",
+      "audioDuration": 12.41,
+      "videoDuration": 12.41,
+      "timelineStart": 105.45,
+      "timelineEnd": 117.86,
+      "duration": 12.41,
+      "transitionDuration": 0,
+      "actions": [
+        {
+          "offsetSec": 0.8,
+          "type": "move",
+          "selector": ".hero",
+          "duration": 600,
+          "desc": "Move to hero",
+          "timelineAbsoluteSec": 106.25
+        },
+        {
+          "offsetSec": 3.5,
+          "type": "scroll",
+          "bottom": true,
+          "desc": "Scroll through full ecosystem",
+          "timelineAbsoluteSec": 108.95
+        },
+        {
+          "offsetSec": 7.5,
+          "type": "scroll",
+          "top": 0,
+          "desc": "Scroll back to brand hero",
+          "timelineAbsoluteSec": 112.95
+        },
+        {
+          "offsetSec": 9.5,
+          "type": "hold",
+          "desc": "Hold closing screen",
+          "timelineAbsoluteSec": 114.95
+        }
+      ],
+      "captions": [
+        {
+          "index": 1,
+          "start": 105.45,
+          "end": 109.59,
+          "text": "ScholarMate AI bridges the information gap between deserving students and vital academic funding."
+        },
+        {
+          "index": 2,
+          "start": 109.59,
+          "end": 113.73,
+          "text": "Clean, fast, and completely free to use."
+        },
+        {
+          "index": 3,
+          "start": 113.73,
+          "end": 117.87,
+          "text": "Explore the live portal and discover your opportunities today."
+        }
+      ]
+    }
+  ]
+}

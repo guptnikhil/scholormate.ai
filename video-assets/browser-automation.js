@@ -1,7 +1,8 @@
 /**
  * browser-automation.js
- * Programmatically drives a Chromium 1080p browser instance to execute
- * the ScholarMate AI user journey and records HD video.
+ * Programmatically drives a Chromium 1080p browser instance with
+ * strict timeline synchronization based on timeline-manifest.json.
+ * Records discrete, frame-accurate clips for each scene.
  */
 
 const { chromium } = require('playwright');
@@ -14,7 +15,7 @@ if (!fs.existsSync(RECORDINGS_DIR)) {
   fs.mkdirSync(RECORDINGS_DIR, { recursive: true });
 }
 
-// Simple local static file server to ensure the web app is always available
+// Built-in static server so the app runs without external daemons
 function startLocalServer(port = 5500) {
   const rootDir = path.resolve(__dirname, '..');
   const mimeTypes = {
@@ -47,31 +48,31 @@ function startLocalServer(port = 5500) {
 
   return new Promise((resolve) => {
     server.listen(port, '127.0.0.1', () => {
-      console.log(`🌐 Local static server listening on http://127.0.0.1:${port}`);
+      console.log(`🌐 Local static server active on http://127.0.0.1:${port}`);
       resolve(server);
     });
   });
 }
 
-// Injects a sleek visual pointer to illustrate human clicks and mouse motion
-async function injectVisualCursor(page) {
+// Injects visual cursor and compositor keep-alive heartbeat
+async function setupVisualCursor(page) {
   await page.addStyleTag({
     content: `
       #v-cursor {
         position: fixed;
-        width: 24px;
-        height: 24px;
-        background: rgba(37, 99, 235, 0.85);
+        width: 22px;
+        height: 22px;
+        background: rgba(37, 99, 235, 0.90);
         border: 2.5px solid #ffffff;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+        box-shadow: 0 3px 12px rgba(0,0,0,0.40);
         border-radius: 50%;
         pointer-events: none;
-        z-index: 999999;
+        z-index: 9999999;
         transform: translate(-50%, -50%);
-        transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease, width 0.15s ease, height 0.15s ease;
+        transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease;
       }
       #v-cursor.is-clicked {
-        transform: translate(-50%, -50%) scale(0.7);
+        transform: translate(-50%, -50%) scale(0.65);
         background: rgba(22, 163, 74, 0.95);
       }
     `
@@ -84,6 +85,15 @@ async function injectVisualCursor(page) {
       c.style.left = '960px';
       c.style.top = '540px';
       document.body.appendChild(c);
+
+      // Force 60fps compositor repaint so video encoder produces steady frames
+      let t = 0;
+      function tick() {
+        t += 0.05;
+        c.style.outline = (Math.sin(t) * 0.01) + 'px solid transparent';
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     }
   });
 }
@@ -106,22 +116,20 @@ async function moveCursor(page, x, y, duration = 600) {
       }
       requestAnimationFrame(step);
     }, { targetX: x, targetY: y, dur: duration });
-    await page.waitForTimeout(duration + 40);
+    await page.waitForTimeout(duration + 30);
   } catch (_) {}
 }
 
-async function clickElementWithCursor(page, selector, waitAfter = 700) {
+async function clickElement(page, selector, waitAfter = 500) {
   try {
+    await page.waitForSelector(selector, { state: 'visible', timeout: 5000 });
     const el = await page.$(selector);
-    if (!el) {
-      console.warn(`Element ${selector} not found`);
-      return;
-    }
+    if (!el) return;
     const box = await el.boundingBox();
     if (box) {
       const targetX = box.x + box.width / 2;
       const targetY = box.y + box.height / 2;
-      await moveCursor(page, targetX, targetY, 550);
+      await moveCursor(page, targetX, targetY, 450);
       try {
         await page.evaluate(() => {
           const c = document.getElementById('v-cursor');
@@ -129,7 +137,7 @@ async function clickElementWithCursor(page, selector, waitAfter = 700) {
         });
       } catch (_) {}
       await el.click();
-      await page.waitForTimeout(160);
+      await page.waitForTimeout(140);
       try {
         await page.evaluate(() => {
           const c = document.getElementById('v-cursor');
@@ -140,207 +148,167 @@ async function clickElementWithCursor(page, selector, waitAfter = 700) {
       await el.click();
     }
     await page.waitForTimeout(waitAfter);
-  } catch (_) {}
+  } catch (err) {
+    console.warn(`Click failed on ${selector}:`, err.message);
+  }
 }
 
-async function runAutomation() {
+/**
+ * Executes a single scene recording locked to scene.duration
+ */
+async function recordScene(browser, baseUrl, scene) {
+  console.log(`\n🎬 [${scene.id}] Starting: "${scene.name}" (Target: ${scene.duration}s)...`);
+
+  const sceneRecDir = path.join(RECORDINGS_DIR, scene.id);
+  if (fs.existsSync(sceneRecDir)) {
+    fs.rmSync(sceneRecDir, { recursive: true, force: true });
+  }
+  fs.mkdirSync(sceneRecDir, { recursive: true });
+
+  const context = await browser.newContext({
+    viewport: { width: 1920, height: 1080 },
+    recordVideo: {
+      dir: sceneRecDir,
+      size: { width: 1920, height: 1080 }
+    },
+    deviceScaleFactor: 1
+  });
+
+  const page = await context.newPage();
+  const sceneStart = Date.now();
+
+  try {
+    // 1. Navigation
+    const targetUrl = `${baseUrl}${scene.route}`;
+    await page.goto(targetUrl, { waitUntil: 'domcontentloaded' });
+    await setupVisualCursor(page);
+
+    // 2. Scheduled Action Loop
+    for (const action of scene.actions) {
+      const targetMs = sceneStart + (action.offsetSec * 1000);
+      const now = Date.now();
+      const waitTime = targetMs - now;
+      if (waitTime > 0) {
+        await page.waitForTimeout(waitTime);
+      }
+
+      console.log(`   ⏱️ [${action.offsetSec.toFixed(1)}s] Action: ${action.desc}`);
+
+      if (action.type === 'move') {
+        if (action.selector) {
+          try {
+            await page.waitForSelector(action.selector, { state: 'visible', timeout: 4000 });
+            const el = await page.$(action.selector);
+            if (el) {
+              const box = await el.boundingBox();
+              if (box) {
+                await moveCursor(page, box.x + box.width / 2, box.y + box.height / 2, action.duration || 500);
+              }
+            }
+          } catch (_) {}
+        } else if (action.x !== undefined && action.y !== undefined) {
+          await moveCursor(page, action.x, action.y, action.duration || 500);
+        }
+      } else if (action.type === 'click') {
+        await clickElement(page, action.selector);
+      } else if (action.type === 'select') {
+        try {
+          await page.waitForSelector(action.selector, { state: 'visible', timeout: 4000 });
+          const el = await page.$(action.selector);
+          if (el) {
+            const box = await el.boundingBox();
+            if (box) await moveCursor(page, box.x + box.width / 2, box.y + box.height / 2, 400);
+          }
+          await page.selectOption(action.selector, action.value);
+        } catch (_) {}
+      } else if (action.type === 'fill') {
+        try {
+          await page.waitForSelector(action.selector, { state: 'visible', timeout: 4000 });
+          const el = await page.$(action.selector);
+          if (el) {
+            const box = await el.boundingBox();
+            if (box) await moveCursor(page, box.x + box.width / 2, box.y + box.height / 2, 400);
+          }
+          await page.fill(action.selector, action.value);
+        } catch (_) {}
+      } else if (action.type === 'scroll') {
+        if (action.bottom) {
+          await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+        } else {
+          await page.evaluate((top) => window.scrollTo({ top, behavior: 'smooth' }), action.top || 0);
+        }
+        await page.waitForTimeout(600);
+      } else if (action.type === 'hold') {
+        // Hold screen steady
+      }
+    }
+
+    // 3. Ensure visual footage stays stable until the narration concludes
+    const elapsed = (Date.now() - sceneStart) / 1000;
+    const remainingMs = Math.max(0, (scene.duration - elapsed) * 1000);
+    if (remainingMs > 0) {
+      console.log(`   ⏳ Holding visual state for remaining ${ (remainingMs / 1000).toFixed(2) }s to match voiceover...`);
+      await page.waitForTimeout(remainingMs);
+    }
+
+  } catch (err) {
+    console.error(`❌ Error in scene ${scene.id}:`, err);
+  } finally {
+    await page.close();
+    await context.close();
+  }
+
+  // Retrieve the generated video
+  const files = fs.readdirSync(sceneRecDir).filter(f => f.endsWith('.webm'));
+  if (files.length === 0) {
+    throw new Error(`No recording found for scene ${scene.id}`);
+  }
+
+  const rawRecPath = path.join(sceneRecDir, files[0]);
+  const destRecPath = path.join(RECORDINGS_DIR, `${scene.id}.webm`);
+  fs.copyFileSync(rawRecPath, destRecPath);
+
+  const realElapsed = ((Date.now() - sceneStart) / 1000).toFixed(2);
+  console.log(`   ✅ [${scene.id}] Recorded successfully (${realElapsed}s) -> ${destRecPath}`);
+  return destRecPath;
+}
+
+/**
+ * Runs browser automation for the given manifest scenes
+ */
+async function runAutomation(manifest) {
   const baseUrl = process.env.TARGET_URL || 'http://127.0.0.1:5500';
   let server = null;
   if (!process.env.TARGET_URL) {
     server = await startLocalServer(5500);
   }
 
-  console.log(`🎬 Launching Playwright 1080p recording session for: ${baseUrl}`);
+  console.log(`🚀 Launching Playwright browser instance targeting: ${baseUrl}`);
   const browser = await chromium.launch({
-    headless: true,
+    headless: true
   });
 
-  const context = await browser.newContext({
-    viewport: { width: 1920, height: 1080 },
-    recordVideo: {
-      dir: RECORDINGS_DIR,
-      size: { width: 1920, height: 1080 },
-    },
-    deviceScaleFactor: 1,
-  });
-
-  const page = await context.newPage();
+  const recordedScenes = [];
 
   try {
-    // =========================================================================
-    // SCENE 1: Introduction & Landing Hero (approx 18.5s)
-    // =========================================================================
-    console.log('▶️ Scene 1: Homepage Hero & Live-typing simulation...');
-    await page.goto(`${baseUrl}/index.html`, { waitUntil: 'networkidle' });
-    await injectVisualCursor(page);
-    await moveCursor(page, 960, 480, 800);
-    await page.waitForTimeout(2000);
-
-    // Hover over search console to observe query typing
-    const searchConsole = await page.$('.search-console');
-    if (searchConsole) {
-      const box = await searchConsole.boundingBox();
-      if (box) await moveCursor(page, box.x + box.width / 2, box.y + box.height / 2, 700);
+    for (const scene of manifest.scenes) {
+      const recPath = await recordScene(browser, baseUrl, scene);
+      recordedScenes.push({
+        sceneId: scene.id,
+        videoPath: recPath,
+        audioPath: scene.audioFile,
+        duration: scene.duration
+      });
     }
-    await page.waitForTimeout(6500);
-
-    // Hover over Primary CTA
-    await clickElementWithCursor(page, '.hero__ctas a.btn-primary', 2000);
-
-    // =========================================================================
-    // SCENE 2: Dark / Light Mode Transition (approx 12s)
-    // =========================================================================
-    console.log('▶️ Scene 2: Demonstrating Zero-FOUC Dark Theme Toggle...');
-    // Return to home to show theme switch across hero & navbar
-    await page.goto(`${baseUrl}/index.html`, { waitUntil: 'networkidle' });
-    await injectVisualCursor(page);
-    await moveCursor(page, 1820, 31, 800); // Navbar theme toggle location
-    await clickElementWithCursor(page, '#themeToggle', 2200);
-
-    // Show theme switch worked cleanly
-    await page.evaluate(() => window.scrollBy({ top: 380, behavior: 'smooth' }));
-    await page.waitForTimeout(3000);
-    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    await page.waitForTimeout(1500);
-
-    // =========================================================================
-    // SCENE 3: Eligibility Finder (approx 20s)
-    // =========================================================================
-    console.log('▶️ Scene 3: Scholarship Eligibility Finder form...');
-    await page.goto(`${baseUrl}/pages/finder.html`, { waitUntil: 'networkidle' });
-    await injectVisualCursor(page);
-    await page.waitForTimeout(1200);
-
-    // Fill domicile state
-    await clickElementWithCursor(page, '#state', 400);
-    await page.selectOption('#state', 'Bihar');
-    await page.waitForTimeout(600);
-
-    // Fill academic category
-    await clickElementWithCursor(page, '#category', 400);
-    await page.selectOption('#category', 'STEM');
-    await page.waitForTimeout(600);
-
-    // Fill income
-    await clickElementWithCursor(page, '#income', 400);
-    await page.fill('#income', '80000');
-    await page.waitForTimeout(600);
-
-    // Fill class
-    await clickElementWithCursor(page, '#currentClass', 400);
-    await page.selectOption('#currentClass', 'undergraduate');
-    await page.waitForTimeout(600);
-
-    // Toggle Minority: Yes
-    await page.evaluate(() => window.scrollBy({ top: 220, behavior: 'smooth' }));
-    await page.waitForTimeout(600);
-    await clickElementWithCursor(page, '[data-toggle-group="minority"] .toggle-chip[data-value="yes"]', 700);
-
-    // Submit Finder form
-    await clickElementWithCursor(page, '#findBtn', 2500);
-
-    // =========================================================================
-    // SCENE 4: Results Directory & Filtering (approx 18s)
-    // =========================================================================
-    console.log('▶️ Scene 4: Filterable Results Directory...');
-    await page.waitForURL(/results\.html/);
-    await injectVisualCursor(page);
-    await page.waitForTimeout(1800);
-
-    // Smooth hover across top cards
-    await moveCursor(page, 450, 420, 800);
-    await page.waitForTimeout(2000);
-
-    // Type query into instant filter
-    const searchFilter = await page.$('#filterSearch');
-    if (searchFilter) {
-      await clickElementWithCursor(page, '#filterSearch', 300);
-      await page.fill('#filterSearch', 'engineering');
-      await page.waitForTimeout(2000);
-      await page.fill('#filterSearch', '');
-    }
-
-    // Sort by highest amount
-    await clickElementWithCursor(page, '#sortSelect', 400);
-    await page.selectOption('#sortSelect', 'amount');
-    await page.waitForTimeout(2200);
-
-    // =========================================================================
-    // SCENE 5: Scheme Dossier & Interactive Document Checklist (approx 22s)
-    // =========================================================================
-    console.log('▶️ Scene 5: Scheme Dossier & Document Readiness Checklist...');
-    await page.goto(`${baseUrl}/pages/details.html?id=sch_001`, { waitUntil: 'networkidle' });
-    await injectVisualCursor(page);
-    await page.waitForTimeout(1600);
-
-    // Scroll down to the Document Checklist
-    await page.evaluate(() => window.scrollTo({ top: 480, behavior: 'smooth' }));
-    await page.waitForTimeout(1200);
-
-    // Check each document one by one with visible progress updates
-    await clickElementWithCursor(page, 'label[for="doc-0"]', 1000);
-    await clickElementWithCursor(page, 'label[for="doc-1"]', 1000);
-    await clickElementWithCursor(page, 'label[for="doc-2"]', 1000);
-    await clickElementWithCursor(page, 'label[for="doc-3"]', 1600);
-
-    // Highlight the official application button
-    await moveCursor(page, 1500, 360, 800);
-    await page.waitForTimeout(2500);
-
-    // =========================================================================
-    // SCENE 6: Natural Language AI Assistant (approx 15s)
-    // =========================================================================
-    console.log('▶️ Scene 6: Conversational AI Assistant...');
-    await page.goto(`${baseUrl}/pages/assistant.html`, { waitUntil: 'networkidle' });
-    await injectVisualCursor(page);
-    await page.waitForTimeout(1400);
-
-    // Click suggested prompt
-    await clickElementWithCursor(page, '.suggested-q', 3000);
-
-    // Hover microphone button to show Web Speech voice option
-    const micBtn = await page.$('#micBtn');
-    if (micBtn) {
-      const box = await micBtn.boundingBox();
-      if (box) await moveCursor(page, box.x + box.width / 2, box.y + box.height / 2, 800);
-    }
-    await page.waitForTimeout(2500);
-
-    // =========================================================================
-    // SCENE 7: Branded Closing (approx 12s)
-    // =========================================================================
-    console.log('▶️ Scene 7: Overview & Closing...');
-    await page.goto(`${baseUrl}/index.html`, { waitUntil: 'networkidle' });
-    await injectVisualCursor(page);
-    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
-    await page.waitForTimeout(3500);
-
-  } catch (err) {
-    console.error('Automation encountered an error:', err);
   } finally {
-    console.log('🏁 Closing browser context and flushing video stream...');
-    await page.close();
-    await context.close();
     await browser.close();
-
     if (server) {
       server.close();
+      console.log('🛑 Local static server stopped.');
     }
   }
 
-  // Find the generated webm file
-  const videoFiles = fs.readdirSync(RECORDINGS_DIR).filter(f => f.endsWith('.webm'));
-  if (videoFiles.length > 0) {
-    const rawVideoPath = path.join(RECORDINGS_DIR, videoFiles[videoFiles.length - 1]);
-    console.log(`✅ Raw 1080p recording successfully created at: ${rawVideoPath}`);
-    return rawVideoPath;
-  } else {
-    throw new Error('No video recording file found.');
-  }
+  return recordedScenes;
 }
 
-if (require.main === module) {
-  runAutomation().catch(console.error);
-}
-
-module.exports = { runAutomation };
+module.exports = { runAutomation, startLocalServer };
