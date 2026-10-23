@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "generate-demo": "node generate-demo.js",
+    "generate-samples": "node generate-voice-samples.js",
+    "generate-elevenlabs": "node generate-narration-elevenlabs.js",
     "test-pipeline": "node test-pipeline.js",
     "test": "node test-pipeline.js"
   },

@@ -4,3 +4,7 @@ audio/*.wav
 audio/*.aiff
 audio/concat_list.txt
 test_subtitles.*
+.env
+.env.*
+audio/samples/
+audio/backup/
