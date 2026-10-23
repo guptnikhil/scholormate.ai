@@ -221,6 +221,25 @@ textarea:focus-visible,
 }
 
 /* =========================================================================
+   Page Entrance Animation
+   ========================================================================= */
+
+main {
+  animation: page-entrance 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes page-entrance {
+  from {
+    opacity: 0.5;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================================
    Navbar (Editorial Masthead)
    ========================================================================= */
 
@@ -292,12 +311,19 @@ textarea:focus-visible,
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-soft);
-  transition: color 0.15s ease, background-color 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.12s ease, background-color 0.12s ease, transform 0.1s ease;
 }
 
 .nav-links a:hover {
   color: var(--ink);
   background: var(--paper-tint);
+  transform: translateY(-1px);
+}
+
+.nav-links a:active {
+  transform: translateY(0.5px) scale(0.97);
 }
 
 .nav-links a.is-active {
@@ -425,12 +451,20 @@ textarea:focus-visible,
   color: var(--ink-soft);
   border-radius: var(--r-sm);
   border-bottom: 1px solid var(--slate-100);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.12s ease, color 0.12s ease, transform 0.1s ease;
 }
 
 .nav-mobile a:hover,
 .nav-mobile a.is-active {
   color: var(--accent);
   background: var(--paper-tint);
+}
+
+.nav-mobile a:active {
+  background: var(--paper-tint);
+  transform: scale(0.985);
 }
 
 @media (min-width: 880px) {
@@ -443,6 +477,7 @@ textarea:focus-visible,
 
 .btn {
   position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -455,7 +490,51 @@ textarea:focus-visible,
   border: 1px solid transparent;
   cursor: pointer;
   white-space: nowrap;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+  transform: translateY(0);
+}
+
+.btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn:active {
+  transform: translateY(0.5px) scale(0.98);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition-duration: 0.05s;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.32);
+  transform: scale(0);
+  animation: ripple-pop 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+[data-theme="dark"] .btn-primary .ripple {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary .ripple,
+.btn-ghost .ripple {
+  background: rgba(20, 23, 26, 0.12);
+}
+
+[data-theme="dark"] .btn-secondary .ripple,
+[data-theme="dark"] .btn-ghost .ripple {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+@keyframes ripple-pop {
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 .btn-primary {
@@ -516,12 +595,13 @@ textarea:focus-visible,
   border: 1px solid var(--slate-200);
   border-radius: var(--r-md);
   box-shadow: var(--shadow-sm);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-lift:hover {
   border-color: var(--slate-400);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 /* Feature category row / index item */
@@ -826,12 +906,19 @@ textarea:focus-visible,
   color: var(--ink-soft);
   border-radius: var(--r-sm);
   cursor: pointer;
-  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease, transform 0.1s ease;
 }
 
 .toggle-chip:hover {
   background: var(--paper-tint);
   border-color: var(--slate-400);
+  transform: translateY(-1px);
+}
+
+.toggle-chip:active {
+  transform: scale(0.96);
 }
 
 .toggle-chip.is-active {
@@ -1085,13 +1172,20 @@ textarea:focus-visible,
   font-size: 13.5px;
   color: var(--ink-soft);
   cursor: pointer;
-  transition: border-color .15s ease, color .15s ease, background-color .15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.12s ease, color 0.12s ease, background-color 0.12s ease, transform 0.1s ease;
 }
 
 .suggested-q:hover {
   border-color: var(--slate-400);
   color: var(--ink);
   background: var(--paper-tint);
+  transform: translateX(2px);
+}
+
+.suggested-q:active {
+  transform: scale(0.985);
 }
 
 .chat-main {
@@ -1339,13 +1433,19 @@ textarea:focus-visible,
   border: 1px solid var(--slate-200);
   border-radius: var(--r-md);
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.1s ease;
 }
 
 .doc-item:hover {
   background: var(--surface);
   border-color: var(--slate-400);
+  transform: translateX(2px);
+}
+
+.doc-item:active {
+  transform: scale(0.99);
 }
 
 .doc-item.is-checked {
@@ -1578,8 +1678,9 @@ textarea:focus-visible,
 
 .fade-up {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: translateY(8px);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .fade-up.is-visible {

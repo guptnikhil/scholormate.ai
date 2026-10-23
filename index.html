@@ -198,16 +198,16 @@
           typerEl.innerHTML = text.slice(0, i) + '<span class="cursor"></span>';
           if (i >= text.length) {
             clearInterval(interval);
-            setTimeout(cb, 500);
+            setTimeout(cb, 300);
           }
-        }, 28);
+        }, 18);
       }
 
       function showMatches() {
         mockMatches.forEach((m, idx) => {
           const chip = document.createElement("div");
           chip.className = "search-chip-result";
-          chip.style.animationDelay = `${idx * 130}ms`;
+          chip.style.animationDelay = `${idx * 90}ms`;
           chip.innerHTML = `<span class="dot">${m.match}</span><span>${m.name}</span>`;
           resultsEl.appendChild(chip);
         });
@@ -217,7 +217,7 @@
         setTimeout(() => {
           resultsEl.innerHTML = "";
           cb();
-        }, 2200);
+        }, 1800);
       }
 
       function cycle() {
@@ -225,7 +225,7 @@
           showMatches();
           eraseQuery(() => {
             qIndex = (qIndex + 1) % queries.length;
-            setTimeout(cycle, 600);
+            setTimeout(cycle, 400);
           });
         });
       }

@@ -298,16 +298,16 @@ function wireMobileNav() {
 /* ============================= Micro-UX =================================== */
 
 /**
- * Material-style ripple on buttons. Creates a span, expands it, then removes it.
+ * Material-style tactile ripple on buttons. Uses pointerdown for 0ms latency.
  */
 function initButtonRipples() {
-  document.addEventListener("click", (e) => {
+  document.addEventListener("pointerdown", (e) => {
     const btn = e.target.closest(".btn");
     if (!btn) return;
 
     const rect = btn.getBoundingClientRect();
     const ripple = document.createElement("span");
-    const size = Math.max(rect.width, rect.height);
+    const size = Math.max(rect.width, rect.height) * 1.4;
     const x = e.clientX - rect.left - size / 2;
     const y = e.clientY - rect.top - size / 2;
 
@@ -317,8 +317,8 @@ function initButtonRipples() {
     ripple.style.top = `${y}px`;
 
     btn.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-  });
+    setTimeout(() => ripple.remove(), 420);
+  }, { passive: true });
 }
 
 /* ============================== Toasts ===================================== */
@@ -362,7 +362,18 @@ window.showToast = showToast;
 
 function initScrollReveal() {
   const targets = document.querySelectorAll(".fade-up");
-  if (!("IntersectionObserver" in window) || targets.length === 0) {
+  if (!targets.length) return;
+
+  // Instantly reveal elements in or near initial viewport to eliminate any visual delay
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight || 800;
+  targets.forEach((t) => {
+    const rect = t.getBoundingClientRect();
+    if (rect.top <= windowHeight + 60) {
+      t.classList.add("is-visible");
+    }
+  });
+
+  if (!("IntersectionObserver" in window)) {
     targets.forEach((t) => t.classList.add("is-visible"));
     return;
   }
@@ -376,10 +387,14 @@ function initScrollReveal() {
         }
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    { threshold: 0.02, rootMargin: "60px 0px" }
   );
 
-  targets.forEach((t) => observer.observe(t));
+  targets.forEach((t) => {
+    if (!t.classList.contains("is-visible")) {
+      observer.observe(t);
+    }
+  });
 }
 
 /* =========================== Voice Input =================================== */

@@ -195,7 +195,7 @@ async function matchScholarships(profile) {
   // if (!res.ok) throw new Error("Failed to fetch matches");
   // return res.json();
 
-  await delay(900);
+  await delay(120);
   let results = [...MOCK_SCHOLARSHIPS];
 
   if (profile?.state && profile.state !== "Any") {
@@ -222,7 +222,7 @@ async function getScholarships(filters = {}) {
   // if (!res.ok) throw new Error("Failed to fetch scholarships");
   // return res.json();
 
-  await delay(700);
+  await delay(80);
   let results = [...MOCK_SCHOLARSHIPS];
 
   if (filters.state && filters.state !== "Any") {
@@ -259,7 +259,7 @@ async function getScholarshipById(id) {
   // if (!res.ok) throw new Error("Scholarship not found");
   // return res.json();
 
-  await delay(500);
+  await delay(40);
   return MOCK_SCHOLARSHIPS.find((s) => s.id === id) || null;
 }
 
@@ -280,7 +280,7 @@ async function sendChatMessage(message, history = []) {
   // if (!res.ok) throw new Error("Chat request failed");
   // return res.json();
 
-  await delay(1100);
+  await delay(260);
   const lower = message.toLowerCase();
 
   if (lower.includes("bihar") || lower.includes("income")) {

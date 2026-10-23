@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
       sessionStorage.setItem("sm_results", JSON.stringify(currentResults));
       updateHeading(storedProfile ? JSON.parse(storedProfile) : null);
-      // brief delay so the skeleton -> content transition is visible
-      await new Promise((r) => setTimeout(r, 350));
+      // micro-delay for smooth layout paint
+      await new Promise((r) => setTimeout(r, 40));
     } else {
       const { results } = await getScholarships({});
       currentResults = results;
