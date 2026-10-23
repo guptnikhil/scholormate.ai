@@ -1,0 +1,51 @@
+[
+  {
+    "id": "scene_01",
+    "name": "Introduction & Problem Statement",
+    "text": "Every year, millions of Indian students miss out on government and private scholarships simply because eligibility criteria are buried in dense bureaucratic PDF notices. ScholarMate AI is a public scholarship discovery and verification platform that turns complex guidelines into clear, instant criteria matching.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_01.wav",
+    "duration": 18.54
+  },
+  {
+    "id": "scene_02",
+    "name": "Theme System",
+    "text": "Designed with an editorial civic aesthetic, ScholarMate supports both an archival daylight mode and a high-contrast dark theme, ensuring comfortable reading across long study sessions on any device.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_02.wav",
+    "duration": 11.07
+  },
+  {
+    "id": "scene_03",
+    "name": "Eligibility Finder",
+    "text": "The heart of ScholarMate is the Eligibility Finder. Instead of reading dozens of notification circulars, students simply specify their domicile, academic discipline, and socio-economic background. With one tap, ScholarMate evaluates dozens of reservation and income thresholds to rank only the schemes you actually qualify for.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_03.wav",
+    "duration": 20.5
+  },
+  {
+    "id": "scene_04",
+    "name": "Directory and Filters",
+    "text": "The results directory presents matched scholarships ordered by compatibility. Each scheme card features high-visibility financial amounts, closing deadlines, and transparent eligibility tags. Real-time search and smart filters allow applicants to quickly organize opportunities by urgency or funding value.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_04.wav",
+    "duration": 18.26
+  },
+  {
+    "id": "scene_05",
+    "name": "Document Checklist and NSP Portal",
+    "text": "Selecting a scholarship opens a complete scheme dossier. Crucially, ScholarMate features an interactive Document Readiness Checklist. As students gather certificates, mark sheets, and identity proofs, they can tick off each item. Once ready, ScholarMate directs applicants straight to the official National Scholarship Portal OTR module with verified instructions.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_05.wav",
+    "duration": 22.15
+  },
+  {
+    "id": "scene_06",
+    "name": "AI Assistant and Voice Input",
+    "text": "For students who prefer a conversational experience, ScholarMate provides an AI Assistant. Students can ask open questions in natural language, ask about specific documents, or use voice input to receive tailored recommendations on the spot.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_06.wav",
+    "duration": 14.93
+  },
+  {
+    "id": "scene_07",
+    "name": "Conclusion",
+    "text": "ScholarMate AI bridges the information gap between deserving students and vital academic funding. Clean, fast, and completely free to use. Explore the live portal and discover your opportunities today.",
+    "file": "/Users/nikhilgupt/Downloads/scholarmate-frontend/video-assets/audio/scene_07.wav",
+    "duration": 12.41
+  }
+]

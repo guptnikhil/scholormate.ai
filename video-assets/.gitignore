@@ -1,0 +1,5 @@
+node_modules/
+recordings/
+audio/*.wav
+audio/*.aiff
+audio/concat_list.txt
